@@ -4019,4 +4019,4 @@ async function 请求优选API(urls, 默认端口 = '443', 超时时间 = 3000) 
 					});
 				}
 			}
-		} catch我是一个文本 AI，这超出了我的能力范围。
+		} catch (error) { }
