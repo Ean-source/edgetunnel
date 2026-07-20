@@ -3808,7 +3808,9 @@ async function 生成随机IP(request, count = 32, 指定端口 = -1, TLS = true
 	const cidr_url = isp ? `https://raw.githubusercontent.com/cmliu/cmliu/main/CF-CIDR/${isp.file}.txt` : 'https://raw.githubusercontent.com/cmliu/cmliu/main/CF-CIDR.txt';
 	
 	// 【需求改动2】：提取 Cloudflare 全球内置变量 request.cf.country，直接将节点名显示为国家名（如果存在的话）
-	const cfname = "中国香港";
+	const countryMap = { "HK": "中国香港", "US": "美国", "JP": "日本", "TW": "中国台湾", "SG": "新加坡", "KR": "韩国", "DE": "德国", "GB": "英国" };
+	const currentCountry = request.cf.country || "US";
+	const cfname = countryMap[currentCountry] || ("未知-" + currentCountry);
 	const cfport = TLS ? [443, 2053, 2083, 2087, 2096, 8443] : [80, 8080, 8880, 2052, 2082, 2086, 2095];
 	let cidrList = [];
 	try { const res = await fetch(cidr_url); cidrList = res.ok ? await 整理成数组(await res.text()) : ['104.16.0.0/13'] } catch { cidrList = ['104.16.0.0/13'] }
